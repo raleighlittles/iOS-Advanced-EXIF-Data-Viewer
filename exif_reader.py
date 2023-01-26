@@ -2,9 +2,10 @@ import os
 import pandas
 import subprocess
 import typing
+import io
 
-def get_exif_data(filename: str) -> dict:
-    exiftool_cmd_get_all_metadata_csv = "exiftool -a -U -csv {}".format(filename)
+def get_exif_data(image_filename: str) -> dict:
+    exiftool_cmd_get_all_metadata_csv = "exiftool -a -U -csv {}".format(image_filename)
     exiftool_csv_string = subprocess.run(exiftool_cmd_get_all_metadata_csv.split(), stdout=subprocess.PIPE).stdout.decode('utf-8', 'ignore').strip()
     exif_dict = pandas.read_csv(io.StringIO(exiftool_csv_string)).to_dict()
     return exif_dict

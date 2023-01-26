@@ -12,6 +12,9 @@ def create_accelerometer_plot(accel_vector : typing.List) -> str:
 
     ax = fig.add_subplot(111, projection='3d')
 
+    # TODO: print `g` in LaTeX format
+    ax.set_title("Acceleration (g)")
+
     ax.set_xlabel("X")
     ax.set_ylabel("Y")
     ax.set_zlabel("Z")
