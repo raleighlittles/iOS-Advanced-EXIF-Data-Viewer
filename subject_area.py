@@ -3,7 +3,6 @@ import sys
 import typing
 import subprocess
 
-# https://www.awaresystems.be/imaging/tiff/tifftags/privateifd/exif/subjectarea.html
 
 def draw_subject_highlight(img_name : str, subject_area_exif : typing.List, img_width, img_height):
 

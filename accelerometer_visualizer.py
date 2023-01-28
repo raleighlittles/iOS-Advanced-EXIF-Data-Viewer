@@ -1,9 +1,10 @@
 import matplotlib.pyplot
 import typing
 
-def create_accelerometer_plot(accel_vector : typing.List) -> str:
+def create_accelerometer_plot(image_basename : str, accel_vector : typing.List):
     """
-    Return filename
+    Creates a matplotlib 3D quiver plot of the acceleration vector:
+    https://matplotlib.org/stable/gallery/mplot3d/quiver3d.html
     """
 
     x, y, z = accel_vector
@@ -12,28 +13,25 @@ def create_accelerometer_plot(accel_vector : typing.List) -> str:
 
     ax = fig.add_subplot(projection='3d')
 
-    # TODO: print `g` in LaTeX format
-    ax.set_title("Acceleration (g)")
+    ax.set_title("Acceleration (g) in image " + image_basename)
 
-    ax.set_xlabel("X")
+    ax.set_xlabel("X - (+) Left / (-) Right")
     ax.set_xlim(-1, 1)
 
-    ax.set_ylabel("Y")
+    ax.set_ylabel("Y - (+) Down / (-) Up")
     ax.set_ylim(-1, 1)
 
-    ax.set_zlabel("Z")
+    ax.set_zlabel("Z - (+) Into phone / (-) Out of")
     ax.set_zlim(-1, 1)
 
-    #ax.axis('equal')
+    # Coordinate at the origin
+    ax.scatter(0,0,0)
 
-    #ax.set_aspect('equal')
+    # Plot individual components, use CIE color space, then plot overall
+    ax.quiver(0, 0, 0, x, 0, 0, color='red')
+    ax.quiver(0, 0, 0, 0, y, 0, color = 'green')
+    ax.quiver(0, 0, 0, 0, 0, z, color='blue')
+    ax.quiver(0, 0, 0, x, y, z, color = 'black')
 
-    ax.quiver(0, 0, 0, x, y, z, normalize=True)
-    
-    #ax.set_box_aspect([1,1,1])
 
-
-    matplotlib.pyplot.savefig("figure.png")
-
-    return "figure.png"
-
+    matplotlib.pyplot.savefig(image_basename + ".png")
